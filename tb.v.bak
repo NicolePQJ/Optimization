@@ -1,0 +1,49 @@
+module fp_mult_tb;
+    reg [31:0] dataA;
+    reg [31:0] dataB;
+	 reg clock;
+	 wire nan;
+	 wire overflow;
+    wire [31:0] result;
+
+    fp_mult_1 MyMultiplier (
+        .dataa(dataA),
+        .datab(dataB),
+        .result(result),
+		  .clock(clock),
+		  .nan(nan),
+		  .overflow(overflow)
+    );
+
+    //always #2 clk_in = ~clk_in;
+
+    initial begin
+	     #5
+        //when one data is 0
+		  clock = 1;
+        dataA = 32'h00000000; //0
+        dataB = 32'h41400000; //12
+
+        //when one is infinity
+        //dataA = 32'h7f800000; //infinity
+        //dataB = 32'h41400000;
+
+        //infinity * zero => 32'h7f800001
+        //dataA = 32'h7f800000; //infinity
+        //dataB = 32'h00000000; //0
+
+        //when there is a NaN
+        //dataA = 32'h7f800001; //NaN
+        //dataB = 32'h41400000;
+
+        //normal multiplication => 0x43080000
+        //dataA = 32'h41400000;
+        //dataB = 32'h41400000;
+		  
+		  #5
+
+        $stop;
+
+    end
+
+endmodule
