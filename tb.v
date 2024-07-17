@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns
+`timescale 1ps / 1ps
 module tb ();
     reg [31:0] dataA;
     reg [31:0] dataB;
@@ -51,7 +51,7 @@ module tb ();
         //normal multiplication => 0x43080000
         dataA = 32'h41400000;
         dataB = 32'h41400000;
-        clock_cycle(1);
+        clock_cycle(5);
 
         $stop;
 
